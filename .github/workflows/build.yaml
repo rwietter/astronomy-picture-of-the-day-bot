@@ -1,0 +1,41 @@
+name: fetch apod
+
+on:
+  schedule:
+    - cron: "0 9 * * *"
+  # Run workflow on pushes to main branch
+  # push:
+  #   branches:
+  #     - main
+
+# Steps to carry out
+jobs:
+  build:
+    # Create a ubuntu virtual machine
+    runs-on: ubuntu-latest
+
+    # Checkout repo code
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      # Install node
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.10
+      - run: npm install
+      - run: npm run build --if-present
+        env:
+          CI: true
+          CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
+          CONSUMER_SECRET: ${{ secrets.CONSUMER_SECRET }}
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
+          NASA_API_KEY: ${{ secrets.NASA_API_KEY }}
+
+      # Run script "index.js"
+      - name: post image on twitter
+        run: |-
+          npm run build
+          node dist/src/server.js
