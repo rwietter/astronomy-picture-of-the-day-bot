@@ -37,5 +37,4 @@ jobs:
       # Run script "index.js"
       - name: post image on twitter
         run: |-
-          npm run build
           node dist/src/server.js
