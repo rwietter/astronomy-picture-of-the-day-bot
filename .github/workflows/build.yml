@@ -34,11 +34,11 @@ jobs:
       - run: npm install
       - run: npm run build
         env:
-          CONSUMER_KEY: $Env:CONSUMER_KEY
-          CONSUMER_SECRET: $Env:CONSUMER_SECRET
-          ACCESS_TOKEN: $Env:ACCESS_TOKEN
-          ACCESS_TOKEN_SECRET: $Env:ACCESS_TOKEN_SECRET
-          NASA_API_KEY: $Env:NASA_API_KEY
+          CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
+          CONSUMER_SECRET: ${{ secrets.CONSUMER_SECRET }}
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
+          NASA_API_KEY: ${{ secrets.NASA_API_KEY }}
 
       # Run script "index.js"
       - name: post image on twitter
