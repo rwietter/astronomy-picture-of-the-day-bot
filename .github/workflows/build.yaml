@@ -1,6 +1,10 @@
 name: fetch apod
 
 on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
   schedule:
     - cron: "*/1 * * * *"
   # Run workflow on pushes to main branch
@@ -14,17 +18,22 @@ jobs:
     # Create a ubuntu virtual machine
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x, 16.x]
+
     # Checkout repo code
     steps:
       # Install node
-      - name: Use Node.js
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
         with:
-          node-version: 16.10
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
       - run: npm install
       - run: npm run build
         env:
-          CI: true
           CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
           CONSUMER_SECRET: ${{ secrets.CONSUMER_SECRET }}
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
