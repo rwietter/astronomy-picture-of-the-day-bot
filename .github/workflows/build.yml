@@ -38,6 +38,11 @@ jobs:
           echo NASA_API_KEY=${{ secrets.NASA_API_KEY }} >> .env
         env:
           CI: true
+          CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
+          CONSUMER_SECRET: ${{ secrets.CONSUMER_SECRET }}
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
+          NASA_API_KEY: ${{ secrets.NASA_API_KEY }}
       - name: post image on twitter
         run: |-
           node dist/src/server.js
