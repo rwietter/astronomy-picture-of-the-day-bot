@@ -14,7 +14,7 @@ on:
 
 # Steps to carry out
 jobs:
-  build:
+  cron:
     # Create a ubuntu virtual machine
     runs-on: ubuntu-latest
 
