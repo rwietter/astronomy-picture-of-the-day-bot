@@ -16,16 +16,13 @@ jobs:
 
     # Checkout repo code
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
-
       # Install node
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
           node-version: 16.10
       - run: npm install
-      - run: npm run build --if-present
+      - run: npm run build
         env:
           CI: true
           CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
