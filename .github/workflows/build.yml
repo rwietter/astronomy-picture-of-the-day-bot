@@ -12,19 +12,14 @@ on:
   #   branches:
   #     - main
 
-# Steps to carry out
 jobs:
   cron:
-    # Create a ubuntu virtual machine
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [14.x]
-
-    # Checkout repo code
     steps:
-      # Install node
+      - name: Git checkout
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -47,8 +42,6 @@ jobs:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
           NASA_API_KEY: ${{ secrets.NASA_API_KEY }}
-
-      # Run script "index.js"
       - name: post image on twitter
         run: |-
           node dist/src/server.js
