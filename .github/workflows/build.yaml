@@ -2,7 +2,7 @@ name: fetch apod
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "*/1 * * * *"
   # Run workflow on pushes to main branch
   # push:
   #   branches:
