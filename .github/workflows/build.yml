@@ -33,6 +33,14 @@ jobs:
           cache: 'npm'
       - run: npm install
       - run: npm run build
+      - name: create env file
+        run: |
+          touch .env
+          echo CONSUMER_KEY=${{ secrets.CONSUMER_KEY }} >> .env
+          echo CONSUMER_SECRET=${{ secrets.CONSUMER_SECRET }} >> .env
+          echo ACCESS_TOKEN=${{ secrets.ACCESS_TOKEN }} >> .env
+          echo ACCESS_TOKEN_SECRET=${{ secrets.ACCESS_TOKEN_SECRET }} >> .env
+          echo NASA_API_KEY=${{ secrets.NASA_API_KEY }} >> .env
         env:
           CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
           CONSUMER_SECRET: ${{ secrets.CONSUMER_SECRET }}
