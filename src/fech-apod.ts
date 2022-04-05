@@ -15,25 +15,30 @@ type ApodType = {
 const APOD_URL = `https://api.nasa.gov/planetary/apod?api_key=${process.env.NASA_API_KEY}`;
 
 const fetchAstronomyPicture = async () => {
-  const response = await http.get(APOD_URL);
+  try {
+    const response = await http.get(APOD_URL);
 
-  if (!response.data) {
-    throw new Error('Não foi possível obter astronomy picture today');
+    if (!response.data) {
+      throw new Error('Could not fetch image');
+    }
+
+    const {
+      hdurl, url, title, copyright, date,
+    }: ApodType = response.data;
+
+    const imgB64 = await imgToB64(url);
+
+    return {
+      imgB64,
+      hdurl,
+      title,
+      copyright,
+      date,
+    };
+  } catch (error) {
+    console.error(error);
+    return {};
   }
-
-  const {
-    hdurl, url, title, copyright, date,
-  }: ApodType = response.data;
-
-  const imgB64 = await imgToB64(hdurl ?? url);
-
-  return {
-    imgB64,
-    hdurl,
-    title,
-    copyright,
-    date,
-  };
 };
 
 export { fetchAstronomyPicture };
