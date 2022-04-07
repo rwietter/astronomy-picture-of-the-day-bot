@@ -26,6 +26,8 @@ const fetchAstronomyPicture = async () => {
       hdurl, url, title, copyright, date,
     }: ApodType = response.data;
 
+    if (!url) throw new Error('Invalid image');
+
     const imgB64 = await imgToB64(url);
 
     return {
