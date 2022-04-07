@@ -1,4 +1,3 @@
-/* eslint-disable import/no-import-module-exports */
 import http from 'axios';
 import imgToB64 from 'image-to-base64';
 

@@ -1,6 +1,3 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable no-shadow */
 import { fetchAstronomyPicture } from './fech-apod';
 import { twit } from './twit';
 
