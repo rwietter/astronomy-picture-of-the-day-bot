@@ -1,35 +1,28 @@
 import { fetchAstronomyPicture } from './fech-apod';
 import { twit } from './twit';
+import { Post } from '../types/post'
 
 require('dotenv').config();
 
-const validateProps = ({
-  title, copyright, date, hdurl,
-}: any) => {
-  const formatTwt = [];
-  if (typeof title !== 'undefined') {
-    formatTwt.push(`"${title}"\n\n`);
+const formatText  = ({title = '', copyright =  '', date = '', hdurl = ''}: Post) => {
+  const res = {
+    title: title && `"${title}"\n\n`,
+    copyright: copyright && `Copyright: ${copyright}\n`,
+    date: date && `Date: ${date}\n\n`,
+    hdurl: hdurl && `hdurl: ${hdurl}\n\n`,
+    hashtags: `#NASA #Astronomy #Space #AstronomyPictureOfTheDay #APOD @NASA`,
   }
-  if (typeof copyright !== 'undefined') {
-    formatTwt.push(`Copyright: ${copyright}\n`);
-  }
-  if (typeof date !== 'undefined') {
-    formatTwt.push(`Date: ${date}\n\n`);
-  }
-  if (typeof hdurl !== 'undefined') {
-    formatTwt.push(`hdurl: ${hdurl}`);
-  }
-  return formatTwt.join('').toString();
-};
+
+  return Object.values(res).join('');
+}
 
 const postTwt = async () => {
   try {
     const {
       imgB64, hdurl, title, copyright, date,
     } = await fetchAstronomyPicture();
-    console.log(copyright);
 
-    const tweet = validateProps({
+    const tweet = formatText({
       title, copyright, date, hdurl,
     });
 
@@ -39,8 +32,7 @@ const postTwt = async () => {
 
       twit.post('media/metadata/create', metaParams, (err: any) => {
         if (err) {
-          console.error('Error on create metadata: ', err);
-          return;
+          return false;
         }
 
         if (!err) {

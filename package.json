@@ -13,22 +13,22 @@
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
     "@types/image-to-base64": "^2.1.0",
-    "@types/node": "^17.0.23",
-    "@types/twit": "^2.2.30",
-    "@typescript-eslint/eslint-plugin": "^5.18.0",
-    "@typescript-eslint/parser": "^5.18.0",
-    "eslint": "^7.32.0",
+    "@types/node": "^18.11.15",
+    "@types/twit": "^2.2.31",
+    "@typescript-eslint/eslint-plugin": "^5.46.1",
+    "@typescript-eslint/parser": "^5.46.1",
+    "eslint": "^8.29.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.25.4",
-    "prettier": "^2.6.2",
-    "prettier-eslint": "^13.0.0",
-    "typescript": "^4.6.3"
+    "eslint-plugin-import": "^2.26.0",
+    "prettier": "^2.8.1",
+    "prettier-eslint": "^15.0.1",
+    "typescript": "^4.9.4"
   },
   "dependencies": {
-    "axios": "^0.26.1",
-    "dotenv": "^16.0.0",
+    "axios": "^1.2.1",
+    "dotenv": "^16.0.3",
     "image-to-base64": "^2.2.0",
-    "ts-node-dev": "^1.1.8",
+    "ts-node-dev": "^2.0.0",
     "twit": "^2.2.11"
   },
   "scripts": {
