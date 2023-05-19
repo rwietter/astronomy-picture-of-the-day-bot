@@ -1,20 +1,23 @@
+/* eslint-disable consistent-return */
 import { fetchAstronomyPicture } from './fech-apod';
 import { twit } from './twit';
-import { Post } from '../types/post'
+import { Post } from '../types/post';
 
 require('dotenv').config();
 
-const formatText  = ({title = '', copyright =  '', date = '', hdurl = ''}: Post) => {
+const formatText = ({
+  title = '', copyright = '', date = '', hdurl = '',
+}: Post) => {
   const res = {
     title: title && `"${title}"\n\n`,
     copyright: copyright && `Copyright: ${copyright}\n`,
     date: date && `Date: ${date}\n\n`,
     hdurl: hdurl && `hdurl: ${hdurl}\n\n`,
-    hashtags: `#NASA #Astronomy #Space #AstronomyPictureOfTheDay #APOD @NASA`,
-  }
+    hashtags: '#NASA #Astronomy #Space #AstronomyPictureOfTheDay #APOD @NASA',
+  };
 
   return Object.values(res).join('');
-}
+};
 
 const postTwt = async () => {
   try {
@@ -28,10 +31,12 @@ const postTwt = async () => {
 
     twit.post('media/upload', { media_data: imgB64 }, (err: any, data: any) => {
       const mediaIdStr = data.media_id_string;
+
       const metaParams = { media_id: mediaIdStr, alt_text: { text: tweet } };
 
       twit.post('media/metadata/create', metaParams, (err: any) => {
         if (err) {
+          console.log(err);
           return false;
         }
 
@@ -42,15 +47,18 @@ const postTwt = async () => {
           };
 
           twit.post('statuses/update', params, (err: Error) => {
-            if (err) throw err;
+            if (err) {
+              console.log(err);
+              return false;
+            }
 
             console.log('Success!');
           });
         }
       });
     });
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    console.log(error.message);
   }
 };
 
